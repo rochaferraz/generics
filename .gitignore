@@ -1,0 +1,8 @@
+generics/CMakeFiles
+*.o
+cmake_install.cmake
+*.a
+tests
+CMakeCache.txt
+Makefile
+cmake_install.cmake
