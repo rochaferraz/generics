@@ -3,6 +3,7 @@
 #include <memory.h>
 
 void swap(void* element1, void* element2, int elementSize) {
+	printf("Sizeof internal: %d\n", elementSize);
 	assert(element1 != NULL);
 	assert(element2 != NULL);
 	assert(elementSize > 0);
