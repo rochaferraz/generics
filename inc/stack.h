@@ -1,3 +1,6 @@
+#ifndef STACK_H
+#define STACK_H
+
 // Configurations
 /// This defines preallocated number of elements when a stack is created
 #define PREALLOC_SIZE	4
@@ -23,3 +26,5 @@ void stackPop(Stack *s, void* elementAddress);
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
+
+#endif /* STACK_H */
