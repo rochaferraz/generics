@@ -5,4 +5,5 @@ cmake_install.cmake
 tests
 CMakeCache.txt
 Makefile
+sbox
 cmake_install.cmake

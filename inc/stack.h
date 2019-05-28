@@ -1,7 +1,8 @@
 #ifndef STACK_H
 #define STACK_H
 
-// Configurations
+// CONFIGURATIONS
+
 /// This defines preallocated number of elements when a stack is created
 #define PREALLOC_SIZE	4
 
@@ -9,7 +10,8 @@
 extern "C" {
 #endif /* __cplusplus */
 
-// Object
+// OBJECT
+
 typedef struct {
 	int _logicalLen;
 	int _allocLen;
@@ -17,7 +19,8 @@ typedef struct {
 	int _elementSize;
 } Stack;
 
-// Methods
+// METHODS
+
 void stackNew(Stack *s, int elementSize);
 void stackDispose(Stack *s);
 void stackPush(Stack *s, void* elementAddress);

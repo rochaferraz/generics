@@ -19,5 +19,5 @@ add_executable(tests ${TESTS} ${SOURCES})
 add_test(generalTests tests)
 
 add_executable(sbox ${SANDBOX} ${SOURCES})
-add_library(generics STATIC ${SOURCES})
+add_library(generics STATIC ${SOURCES} src/linkedList.c)
 target_link_libraries(tests LINK_PUBLIC ${TEST_LIBRARY} ${MOCK_LIBRARY})
