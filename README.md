@@ -8,14 +8,14 @@ The use of plain C language with generics is known for being _dangerous_ as it m
 - Stack
 - Swap
 
-# Wishlist for 
+# Wishlist 
 - Queue
 - Some good hashing function
 - Map
 - Graph
 - Linked List
 
-# Algorithms (To be deployed as Preguilib)
+# Algorithm Wishlist (To be deployed as Preguilib)
 
 - Quicksort and mergesort
 - Binary Tree / BFS / DFS
