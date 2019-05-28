@@ -6,7 +6,7 @@ The use of plain C language with generics is known for being _dangerous_ as it m
 
 We also wrapped them in several unit tests.
 
-This library tries *not* to rely too much on preprocessing as it often brings its own hydra heads to the problem.
+This library tries *not* to rely too much on preprocessing as it often brings its own hydra heads to the problem at hand.
 
 # Current implementatations
 - Stack
