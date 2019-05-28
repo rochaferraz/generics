@@ -8,12 +8,15 @@ The use of plain C language with generics is known for being _dangerous_ as it m
 - Stack
 - Swap
 
-# Wishlist
+# Wishlist for 
 - Queue
-- Some good hashing
+- Some good hashing function
 - Map
 - Graph
 - Linked List
+
+# Algorithms (To be deployed as Preguilib)
+
 - Quicksort and mergesort
 - Binary Tree / BFS / DFS
 - Lee algorithm
@@ -22,10 +25,7 @@ The use of plain C language with generics is known for being _dangerous_ as it m
 - All-Pairs Shortest Paths — Floyd Warshall Algorithm
 - Dijkstra’s Algorithm
 - Kruskal’s Algorithm for finding Minimum Spanning Tree
-
-# Non-generic wishlist
 - Kadane’s algorithm
-
 
 # Installation
 
