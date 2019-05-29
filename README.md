@@ -46,5 +46,7 @@ This library tries *not* to rely too much on preprocessing as it often brings it
    make
 ```
 - Build
-  In the main folder:
-```cmake . && make```
+```cd <your clone repo>
+   cmake .
+   make
+```
