@@ -42,8 +42,10 @@ This library tries *not* to rely too much on preprocessing as it often brings it
 ```git gubmodule update```
 - Build Google Test
 ```cd googletest
-cmake .
-make```
+   cmake .
+   make
+```
 - Build 
 ```cmake .
-make```
+   make
+```
