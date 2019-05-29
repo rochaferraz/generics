@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.13.1)
-project(generic_algorithms_library)
+project(tatu_library)
 
 include_directories("inc/" "googletest/googletest/include/" "googletest/googlemock/include/")
 
@@ -23,9 +23,8 @@ set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS
 find_library(TEST_LIBRARY gtest "googletest/lib")
 find_library(MOCK_LIBRARY gmock "googletest/lib")
 
-add_library(generics STATIC ${SOURCES})
-add_executable(tests ${TESTS} ${SOURCES})
-target_link_libraries(tests LINK_PUBLIC ${TEST_LIBRARY} ${MOCK_LIBRARY})
+add_library(tatu STATIC ${SOURCES})
+add_executable(tatu_tests ${TESTS} ${SOURCES})
+target_link_libraries(tatu_tests LINK_PUBLIC ${TEST_LIBRARY} ${MOCK_LIBRARY})
 
-add_executable(sbox ${SANDBOX} ${SOURCES})
-add_library(generics STATIC ${SOURCES} src/linkedList.c)
+add_executable(tatu_sandbox ${SANDBOX} ${SOURCES})
