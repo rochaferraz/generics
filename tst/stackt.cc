@@ -1,9 +1,9 @@
 #include "gtest/gtest.h"
 #include "stack.h"
-
+#include <string.h>
 
 #define SETUPEXAMPLE(elementSize) Stack s; 				\
-	stackNew(&s, elementSize);      					\
+	stackNew(&s, elementSize, NULL);   					\
 	int numbers[PREALLOC_SIZE*2];   					\
 	for (int i = 0; i < PREALLOC_SIZE*2; i++) {			\
 		numbers[i] = i;									\
@@ -58,7 +58,7 @@ TEST(Stack, IncreasesSizeLong) {
 	stackDispose(&s);
 }
 
-TEST(Stack, ElementsCorrectInt) {
+TEST(Stack, IntElementsCorrect) {
 	SETUPEXAMPLE(sizeof(int));
 
 	ASSERT_TRUE(s._allocLen == PREALLOC_SIZE);
@@ -78,4 +78,39 @@ TEST(Stack, ElementsCorrectInt) {
 	ASSERT_TRUE(s._allocLen == 2*PREALLOC_SIZE);
 
 	stackDispose(&s);
+}
+
+TEST(Stack, StringElementsCorrect) {
+	const char* names[] = {"Armando", "Bonilha", "Cercei", "Dmitri", "Elnathan", "Fausto Renato", "Guilherme", "Heitor", "Illich"};
+
+	Stack s;
+	stackNew(&s, sizeof(char*), &stringDispose);
+
+	ASSERT_TRUE(s._allocLen == PREALLOC_SIZE);
+	ASSERT_TRUE(s._logicalLen == 0);
+
+	for (int i = 0; i < PREALLOC_SIZE*2; i++) {
+		char* duplicate = strdup(names[i]);
+		// double indirection
+		stackPush(&s, &duplicate);
+	}
+
+	for (int i = 0; i < PREALLOC_SIZE*2; i++) {
+		char* name;
+		stackPop(&s, &name);
+		ASSERT_TRUE(strcmp(name, names[PREALLOC_SIZE*2-1-i]) == 0);
+	}
+
+	for (int i = 0; i < PREALLOC_SIZE; i++) {
+		char* duplicate = strdup(names[i]);
+		stackPush(&s, &duplicate);
+	}
+
+	ASSERT_TRUE(s._allocLen == PREALLOC_SIZE*2);
+	ASSERT_TRUE(s._logicalLen == PREALLOC_SIZE);
+
+	stackDispose(&s);
+
+	ASSERT_TRUE(s._logicalLen == 0);
+	ASSERT_TRUE(s._allocLen == 0);
 }

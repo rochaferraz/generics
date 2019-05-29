@@ -2,19 +2,30 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <memory.h>
+#include <stdio.h>
 
-void stackNew(Stack* s, int elementSize) {
+void stackNew(Stack* s, int elementSize, void (*dealocFunction)(void*)) {
 	assert(s != NULL);
 	assert(elementSize > 0);
 	s->_elementSize = elementSize;
 	s->_logicalLen = 0;
 	s->_allocLen = PREALLOC_SIZE;
 	s->_elements = realloc(0, PREALLOC_SIZE * elementSize);
+	s->_dealocFunction = dealocFunction;
 	assert(s->_elements != NULL);
 }
 
 void stackDispose(Stack* s) {
 	assert(s != NULL);
+	if (s->_dealocFunction != NULL) {
+		while(s->_logicalLen > 0) {
+			void* element;
+			stackPop(s, element);
+		}
+	}
+	s->_allocLen = 0;
+	s->_logicalLen = 0;
+	s->_dealocFunction = NULL;
 	free(s->_elements);
 }
 
@@ -42,4 +53,12 @@ void stackPop(Stack *s, void* elementAddress) {
 	s->_logicalLen--;
 	void* source = (char *) s->_elements + s->_logicalLen * s->_elementSize;
 	memcpy(elementAddress, source, s->_elementSize);
+	if (s->_dealocFunction != NULL) {
+		s->_dealocFunction(source);
+	}
+}
+
+void stringDispose(void* strPtr) {
+	// we store double indirection pointers on the stack
+	free(*(char**)strPtr);
 }
