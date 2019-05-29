@@ -64,7 +64,7 @@ extern "C" {
 		char* duplicate = strdup(names[i]);
 		stackPush(&s, &duplicate);
 	}
- 
+
 	stackDispose(&s);
 
 **/

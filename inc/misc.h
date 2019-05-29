@@ -19,6 +19,8 @@
 extern "C" {
 #endif /* __cplusplus */
 
+#include <assert.h>
+
 /** Generic Swap function swaps the contents of [element1] and [element2]
  *  \param element1 pointer to first data structure to be swapped
  *  \param element2 pointer to second data structure to be swapped
@@ -47,31 +49,46 @@ void _swap(void* element1, void* element2, int elementSize);
  *  \param element1 pointer to first <int> to be swapped
  *  \param element2 pointer to second <int> to be swapped
  */
-inline void swap_int(int* element1, int* element2);
+inline void swap_int(int* element1, int* element2) {
+    assert(sizeof(*element1) == sizeof(*element2));
+    _swap(element1, element2, sizeof(*element1));
+}
 
 /** Swap for <uint> swaps the contents of [element1] and [element2]
  *  \param element1 pointer to first <uint> to be swapped
  *  \param element2 pointer to second <uint> to be swapped
  */
-inline void swap_uint(unsigned int* element1, unsigned int* element2);
+inline void swap_uint(unsigned int* element1, unsigned int* element2) {
+    assert(sizeof(*element1) == sizeof(*element2));
+    _swap(element1, element2, sizeof(*element1));
+}
 
 /** Swap for <long> swaps the contents of [element1] and [element2]
  *  \param element1 pointer to first <long> to be swapped
  *  \param element2 pointer to second <long> to be swapped
  */
-inline void swap_long(long* element1, long* element2);
+inline void swap_long(long* element1, long* element2) {
+    assert(sizeof(*element1) == sizeof(*element2));
+    _swap(element1, element2, sizeof(*element1));
+}
 
 /** Swap for <ulong> swaps the contents of [element1] and [element2]
  *  \param element1 pointer to first <ulong> to be swapped
  *  \param element2 pointer to second <ulong> to be swapped
  */
-inline void swap_ulong(unsigned long* element1, unsigned long* element2);
+inline void swap_ulong(unsigned long* element1, unsigned long* element2) {
+    assert(sizeof(*element1) == sizeof(*element2));
+    _swap(element1, element2, sizeof(*element1));
+}
 
 /** Swap for <char*> strings swaps the contents of [element1] and [element2]
  *  \param element1 pointer to first <char*> null-terminated string to be swapped
  *  \param element2 pointer to second <char*> null-terminated string to be swapped
  */
-inline void swap_strptr(char* element1, char* element2);
+inline void swap_strptr(char* element1, char* element2) {
+    assert(sizeof(element1) == sizeof(element2));
+    _swap(element1, element2, sizeof(element1));
+}
 
 #ifdef __cplusplus
 }

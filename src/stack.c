@@ -2,7 +2,6 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <memory.h>
-#include <stdio.h>
 
 void stackNew(Stack* s, int elementSize, void (*dealocFunction)(void*)) {
 	assert(s != NULL);
