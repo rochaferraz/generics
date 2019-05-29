@@ -2,7 +2,8 @@ cmake_minimum_required(VERSION 3.13.1)
 project(generic_algorithms_library)
 
 include_directories("inc/" "googletest/googletest/include/" "googletest/googlemock/include/")
- 
+
+file(GLOB SANDBOX "sandbox/*.c")
 file(GLOB SOURCES "src/*.c")
 file(GLOB TESTS "tst/*.cc")
 
@@ -25,3 +26,6 @@ find_library(MOCK_LIBRARY gmock "googletest/lib")
 add_library(generics STATIC ${SOURCES})
 add_executable(tests ${TESTS} ${SOURCES})
 target_link_libraries(tests LINK_PUBLIC ${TEST_LIBRARY} ${MOCK_LIBRARY})
+
+add_executable(sbox ${SANDBOX} ${SOURCES})
+add_library(generics STATIC ${SOURCES} src/linkedList.c)
