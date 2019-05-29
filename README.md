@@ -38,11 +38,26 @@ This library tries *not* to rely too much on preprocessing as it often brings it
 
 # Installation
 
+- Clone repository
+```bash
+git clone https://github.com/rochaferraz/tatulib.git
+```
+
 - Fetch Google Test submodule
+```bash
+git gubmodule update
+```
+
 - Build Google Test
-	cd googletest
-	cmake .
-	make
-- Build 
-	cmake .
-	make
+```bash
+cd googletest
+cmake .
+make
+```
+
+- Build Tatulib
+```bash
+cd [your cloned repository folder]
+cmake .
+make
+```
