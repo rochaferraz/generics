@@ -38,7 +38,7 @@ This library tries *not* to rely too much on preprocessing as it often brings it
 
 # Installation
 
-- Clone repo
+- Clone repository
 ```bash
 git clone https://github.com/rochaferraz/tatulib.git
 ```
@@ -57,7 +57,7 @@ make
 
 - Build Tatulib
 ```bash
-cd <your clone repo folder>
+cd [your cloned repository folder]
 cmake .
 make
 ```
