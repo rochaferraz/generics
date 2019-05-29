@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.13.1)
 project(tatu_library)
+set(CMAKE_C_STANDARD 99)
 
 include_directories("inc/" "googletest/googletest/include/" "googletest/googlemock/include/")
 
