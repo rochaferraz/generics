@@ -45,7 +45,6 @@ This library tries *not* to rely too much on preprocessing as it often brings it
    cmake .
    make
 ```
-- Build 
-```cmake .
-   make
-```
+- Build
+  In the main folder:
+```cmake . && make```
