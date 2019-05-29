@@ -39,14 +39,18 @@ This library tries *not* to rely too much on preprocessing as it often brings it
 # Installation
 
 - Fetch Google Test submodule
-```git gubmodule update```
+```bash
+git gubmodule update
+```
 - Build Google Test
-```cd googletest
-   cmake .
-   make
+```bash
+cd googletest
+cmake .
+make
 ```
 - Build
-```cd <your clone repo>
-   cmake .
-   make
+```bash
+cd <your clone repo>
+cmake .
+make
 ```
