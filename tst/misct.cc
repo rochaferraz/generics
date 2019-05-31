@@ -31,18 +31,13 @@ TEST(Swap, StringPtrs) {
 	ASSERT_TRUE(strcmp(xl, "James") == 0);
 	ASSERT_TRUE(strcmp(yl, "Bond") == 0);		
 
-	swap_strptr(x, y);
-
-	ASSERT_TRUE(strcmp(x, "Bond") == 0);
-	ASSERT_TRUE(strcmp(y, "James") == 0);		
-
 	swap_strptr(xl, yl);
 
-	//ASSERT_TRUE(strcmp(xl, "Bond") == 0);
-	//ASSERT_TRUE(strcmp(yl, "James") == 0);		
+	ASSERT_TRUE(strcmp(xl, "Bond") == 0);
+	ASSERT_TRUE(strcmp(yl, "James") == 0);
 
 	swap_strptr(xl, yl);
 
 	ASSERT_TRUE(strcmp(xl, "James") == 0);
-	ASSERT_TRUE(strcmp(yl, "Bond") == 0);		
+	ASSERT_TRUE(strcmp(yl, "Bond") == 0);
 }
