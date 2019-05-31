@@ -31,6 +31,8 @@ This library tries *not* to rely too much on preprocessing as it often brings it
 - Dijkstra’s Algorithm
 - Kruskal’s Algorithm for finding Minimum Spanning Tree
 - Kadane’s algorithm
+- Hamming distance
+- Damerau-Levenshtein distance
 
 # Design Templates Wishlist
 
