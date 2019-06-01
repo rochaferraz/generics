@@ -21,6 +21,15 @@ extern "C" {
 
 #include <assert.h>
 
+/**
+ * Does the same as memcpy: copies a memory location. Locations cannot overlap
+ * @param dest pointer to destination
+ * @param src pointer to source
+ * @param len number of bytes to copy
+ * @return original value of destination
+ */
+void *_memcpy (void* dest, const void *src, long len);
+
 /** Generic Swap function swaps the contents of [element1] and [element2]
  *  \param element1 pointer to first data structure to be swapped
  *  \param element2 pointer to second data structure to be swapped

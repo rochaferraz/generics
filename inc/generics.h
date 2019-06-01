@@ -6,7 +6,7 @@
  */
 
 #include "stack.h"
-#include "misc.h"
+#include "ttmemory.h"
 #include "searchArray.h"
 
 #endif /* GENERICS_H */
