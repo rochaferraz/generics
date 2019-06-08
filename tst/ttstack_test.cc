@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "stack.h"
+#include "ttstack.h"
 #include <string.h>
 
 #define SETUPEXAMPLE(elementSize) Stack s; 				\

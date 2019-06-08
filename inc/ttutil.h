@@ -16,7 +16,6 @@
 
 #ifndef _ASMLANGUAGE
 
-#include <zephyr/types.h>
 #include <stdbool.h>
 
 /* Helper to pass a int as a pointer or vice-versa.
@@ -98,24 +97,6 @@ constexpr size_t ARRAY_SIZE(T(&)[N]) { return N; }
 static inline bool is_power_of_two(unsigned int x)
 {
 	return (x != 0U) && ((x & (x - 1)) == 0U);
-}
-
-static inline s64_t arithmetic_shift_right(s64_t value, u8_t shift)
-{
-	s64_t sign_ext;
-
-	if (shift == 0U) {
-		return value;
-	}
-
-	/* extract sign bit */
-	sign_ext = (value >> 63) & 1;
-
-	/* make all bits of sign_ext be the same as the value's sign bit */
-	sign_ext = -sign_ext;
-
-	/* shift value and fill opened bit positions with sign bit */
-	return (value >> shift) | (sign_ext << (64 - shift));
 }
 
 #endif /* !_ASMLANGUAGE */
@@ -201,6 +182,14 @@ static inline s64_t arithmetic_shift_right(s64_t value, u8_t shift)
  */
 #define Z_IS_ENABLED3(ignore_this, val, ...) val
 
+/* Macro used internally to remove brackets from argument. */
+#define __DEBRACKET(...) __VA_ARGS__
+
+/* Macro used internally for getting second argument and removing brackets
+ * around that argument. It is expected that parameter is provided in brackets
+ */
+#define __GET_ARG2_DEBRACKET(ignore_this, val, ...) __DEBRACKET val
+
 /**
  * @brief Insert code depending on result of flag evaluation.
  *
@@ -262,14 +251,6 @@ static inline s64_t arithmetic_shift_right(s64_t value, u8_t shift)
 /* Macro used internally by @ref COND_CODE_1 and @ref COND_CODE_0. */
 #define __COND_CODE(one_or_two_args, _if_code, _else_code) \
 	__GET_ARG2_DEBRACKET(one_or_two_args _if_code, _else_code)
-
-/* Macro used internally to remove brackets from argument. */
-#define __DEBRACKET(...) __VA_ARGS__
-
-/* Macro used internally for getting second argument and removing brackets
- * around that argument. It is expected that parameter is provided in brackets
- */
-#define __GET_ARG2_DEBRACKET(ignore_this, val, ...) __DEBRACKET val
 
 /**
  * @brief Get first argument from variable list of arguments

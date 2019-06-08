@@ -1,7 +1,9 @@
-#ifndef MISC_H
-#define MISC_H
+/**
+ * Copyright (C) 2019, Douglas Rocha Ferraz
+ * SPDX-License-Identifier: MIT
+**/
 
-/*
+/**
  *  _____     _         _ _ _
  * |_   _|_ _| |_ _   _| (_) |__
  *   | |/ _` | __| | | | | | '_ \
@@ -12,8 +14,11 @@
  *                  ,::////;::-.
  *                 /:'///// ``::>/|/
  *               .',  ||||    `/( e\
- *           -==~-'`-Xm````-mm-' `-_\     -Seal do Mar
- */
+ *           -==~-'`-Xm````-mm-' `-_\
+**/
+
+#ifndef MISC_H
+#define MISC_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -28,7 +33,9 @@ extern "C" {
  * @param len number of bytes to copy
  * @return original value of destination
  */
-void *_memcpy (void* dest, const void *src, long len);
+void* ttmemcpy(void* dest, const void *src, long len);
+
+void* ttmemset(void *dest, int val, long len);
 
 /** Generic Swap function swaps the contents of [element1] and [element2]
  *  \param element1 pointer to first data structure to be swapped
@@ -58,7 +65,7 @@ void _swap(void* element1, void* element2, int elementSize);
  *  \param element1 pointer to first <int> to be swapped
  *  \param element2 pointer to second <int> to be swapped
  */
-inline void swap_int(int* element1, int* element2) {
+static inline void swap_int(int* element1, int* element2) {
     assert(sizeof(*element1) == sizeof(*element2));
     _swap(element1, element2, sizeof(*element1));
 }
@@ -67,7 +74,7 @@ inline void swap_int(int* element1, int* element2) {
  *  \param element1 pointer to first <uint> to be swapped
  *  \param element2 pointer to second <uint> to be swapped
  */
-inline void swap_uint(unsigned int* element1, unsigned int* element2) {
+static inline void swap_uint(unsigned int* element1, unsigned int* element2) {
     assert(sizeof(*element1) == sizeof(*element2));
     _swap(element1, element2, sizeof(*element1));
 }
@@ -76,7 +83,7 @@ inline void swap_uint(unsigned int* element1, unsigned int* element2) {
  *  \param element1 pointer to first <long> to be swapped
  *  \param element2 pointer to second <long> to be swapped
  */
-inline void swap_long(long* element1, long* element2) {
+static inline void swap_long(long* element1, long* element2) {
     assert(sizeof(*element1) == sizeof(*element2));
     _swap(element1, element2, sizeof(*element1));
 }
@@ -85,7 +92,7 @@ inline void swap_long(long* element1, long* element2) {
  *  \param element1 pointer to first <ulong> to be swapped
  *  \param element2 pointer to second <ulong> to be swapped
  */
-inline void swap_ulong(unsigned long* element1, unsigned long* element2) {
+static inline void swap_ulong(unsigned long* element1, unsigned long* element2) {
     assert(sizeof(*element1) == sizeof(*element2));
     _swap(element1, element2, sizeof(*element1));
 }
@@ -94,10 +101,22 @@ inline void swap_ulong(unsigned long* element1, unsigned long* element2) {
  *  \param element1 pointer to first <char*> null-terminated string to be swapped
  *  \param element2 pointer to second <char*> null-terminated string to be swapped
  */
-inline void swap_strptr(char* element1, char* element2) {
+static inline void swap_strptr(char* element1, char* element2) {
     assert(sizeof(element1) == sizeof(element2));
     _swap(element1, element2, sizeof(element1));
 }
+
+#ifdef TRACK_MEMORY_EN
+long ttgetMemoryUse(void);
+#endif /* TRACK_MEMORY */
+
+void* ttrealloc(void* ptr, long size);
+void* ttmalloc(long size);
+/// same as libc free, but with debugging features
+void ttfree(void* ptr);
+void ttmemoryInit(void);
+void ttmemoryDispose(void);
+long ttgetMemoryUse(void);
 
 #ifdef __cplusplus
 }

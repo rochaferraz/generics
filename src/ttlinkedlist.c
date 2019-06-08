@@ -1,9 +1,9 @@
 #include "ttmemory.h"
-#include <linkedlist.h>
-#include <memory.h>
+#include "ttconfig.h"
+#include "ttlinkedlist.h"
 #include <stdlib.h>
 
-void linkListNew(LinkedList *list, int elementSize, void* (*nodeDestructorCallback)(Node*)) {
+void linkedListNew(LinkedList *list, int elementSize, void *(*nodeDestructorCallback)(LinkedListNode *)) {
     list->_logicalLen = 0;
     list->_allocLen = 0;
     list->_firstElement = NULL;
@@ -16,25 +16,21 @@ void linkedListInsert(LinkedList *list, void* element) {
     if (list->_firstElement == NULL) {
         list->_firstElement = _linkedListNodeNew(list, NULL, NULL, element);
     } else  {
-        Node* lastNode = _linkedListGetLastNode(list->_firstElement);
-        lastNode->_next = _linkedListNodeNew(list, NULL, NULL, element);
+        LinkedListNode* lastNode = _linkedListGetLastNode(list->_firstElement);
+        lastNode->_next = _linkedListNodeNew(list, lastNode, NULL, element);
     }
     list->_allocLen++;
 }
 
 void linkedListErase(LinkedList *list) {
     list->_logicalLen--;
-    Node* lastNode = NULL;
+    LinkedListNode* lastNode = NULL;
     if (list->_firstElement == NULL) {
         // nothing to erase!
         return;
     } else {
         // finds the last
-        Node* node = _linkedListGetLastNode(list->_firstElement);
-        Node* previous = node->_previous;
-        if (previous) {
-            previous->_next = NULL;
-        }
+        LinkedListNode* node = _linkedListGetLastNode(list->_firstElement);
         _linkedListNodeDestroy(list, node);
         list->_allocLen--;
         return;
@@ -44,7 +40,7 @@ void linkedListErase(LinkedList *list) {
 void linkedListDispose(LinkedList *list) {
     list->_logicalLen = 0;
     list->_allocLen = 0;
-    Node* node = _linkedListGetLastNode(list->_firstElement);
+    LinkedListNode* node = _linkedListGetLastNode(list->_firstElement);
     while (list->_firstElement) {
         _linkedListNodeDestroy(list, list->_firstElement);
     }
@@ -52,7 +48,7 @@ void linkedListDispose(LinkedList *list) {
 }
 
 /// returns NULL if input node is null, otherwise finds the last valid node
-Node* _linkedListGetLastNode(Node* node) {
+LinkedListNode* _linkedListGetLastNode(LinkedListNode* node) {
     if (node->_next) {
         return _linkedListGetLastNode(node->_next);
     } else {
@@ -60,12 +56,12 @@ Node* _linkedListGetLastNode(Node* node) {
     }
 }
 
-void _linkedListNodeDestroy(LinkedList *list, Node *node) {
+void _linkedListNodeDestroy(LinkedList *list, LinkedListNode *node) {
     if (node->_previous) {
-        Node* previous = node->_previous;
+        LinkedListNode* previous = node->_previous;
         // both next and previous exist
         if (node->_next) {
-            Node* next = node->_next;
+            LinkedListNode* next = node->_next;
             previous->_next = next;
             next->_previous = previous;
         }
@@ -75,7 +71,7 @@ void _linkedListNodeDestroy(LinkedList *list, Node *node) {
         }
     } else if (node->_next) {
         // only next exists. First element
-        Node* next = node->_next;
+        LinkedListNode* next = node->_next;
         next->_previous = NULL;
         list->_firstElement = next;
     } else {
@@ -85,20 +81,20 @@ void _linkedListNodeDestroy(LinkedList *list, Node *node) {
     if (list->nodeDestructorCallback) {
         list->nodeDestructorCallback(node);
     } else {
-        free(node->contents);
+        ttfree(node->contents);
     }
     // node deallocation
-    free(node);
+    ttfree(node);
     node = NULL;
 }
 
-Node* _linkedListNodeNew(LinkedList *list, Node* previous, Node* next, void* element) {
+LinkedListNode* _linkedListNodeNew(LinkedList *list, LinkedListNode* previous, LinkedListNode* next, void* element) {
     // node allocation
-    Node* node = malloc(sizeof(Node));
+    LinkedListNode* node = ttmalloc(sizeof(LinkedListNode));
     // content allocation
-    node->contents = malloc(list->_elementSize);
+    node->contents = ttmalloc(list->_elementSize);
     node->_previous = previous;
     node->_next = next;
-    _memcpy(node->contents, element, list->_elementSize);
+    ttmemcpy(node->contents, element, list->_elementSize);
     return node;
 }
