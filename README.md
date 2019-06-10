@@ -11,6 +11,7 @@ This library tries *not* to rely too much on preprocessing as it often brings it
 # Current implementatations
 - Stack
 - Swap
+- Swiss Cheese Array
 
 # Wishlist 
 - Queue
