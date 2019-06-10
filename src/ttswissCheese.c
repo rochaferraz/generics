@@ -74,7 +74,9 @@ void *ttSwissContainsPtr(TTSwissCheese *s, void *elmPtr, unsigned long *optArray
 
 int ttSwissValueCompareFcn(void* num1, void* num2, unsigned int elementSize) {
     if ((*(char**)num1 == NULL) || (*(char**)num2 == NULL)) return -1;
-    return memcmp(*(char**)num1, *(char**)num2, elementSize);
+    char* num11 = *(char**)num1;
+    char* num22 = *(char**)num2;
+    return memcmp(num11, num22, elementSize);
 }
 
 void* ttSwissContainsValue(TTSwissCheese *s, void *elmPtr, unsigned long *optArrayIdx) {

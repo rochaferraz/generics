@@ -65,9 +65,8 @@ TEST(SwissCheese, IntElementsCorrect) {
 	ASSERT_EQ(s._allocLen, PREALLOC_SIZE);
 	ASSERT_EQ(s._logicalLen, 0);
 
-    int* number;
     for (int i = 0; i < PREALLOC_SIZE*2; i++) {
-		number = (int*) malloc(sizeof(int));
+        int* number = (int*) malloc(sizeof(int));
 		*number = i;
 		ASSERT_EQ(ttSwissContainsPtr(&s, number, NULL), (void*)NULL);
 		ASSERT_FALSE(ttSwissContainsValue(&s, number, NULL));
@@ -77,7 +76,6 @@ TEST(SwissCheese, IntElementsCorrect) {
         ttSwissRemovePtr(&s, number);
         ASSERT_EQ(ttSwissContainsPtr(&s, number, NULL), (void*)NULL);
         ASSERT_FALSE(ttSwissContainsValue(&s, number, NULL));
-
 
         ttSwissSaveCopy(&s, &i);
         ASSERT_TRUE(ttSwissContainsValue(&s, &i, NULL));
