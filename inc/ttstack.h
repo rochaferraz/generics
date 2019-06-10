@@ -20,16 +20,18 @@
 #ifndef STACK_H
 #define STACK_H
 
-// CONFIGURATIONS
+/***** CONFIGURATIONS *****/
 
 /// This defines preallocated number of elements when a stack is created
+#include "ttswissCheese.h"
+
 #define PREALLOC_SIZE	4
 
 #ifdef __cplusplus
 extern "C" {
 #endif /* __cplusplus */
 
-/** IMPLEMENTATION NOTES
+/***** IMPLEMENTATION NOTES *****
 
 	This STACK dinamically allocates memory to fit its contents. It starts preallocating space to fit [PREALLOC_SIZE]  
 	elements and doubles its allocation size every time it needs it. It only _deallocates_ memory upon calling 
@@ -86,10 +88,10 @@ extern "C" {
 
 	stackDispose(&s);
 
-**/
+*/
 
 
-/** Defines preallocated number of elements when a stack is created */
+/// Defines preallocated number of elements when a stack is created
 #define PREALLOC_SIZE	4
 
 // OBJECT

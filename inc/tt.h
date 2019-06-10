@@ -29,6 +29,6 @@
 #include "ttutil.h"
 #include "ttstack.h"
 #include "ttmemory.h"
-#include "ttsearchArray.h"
+#include "ttmiscArray.h"
 
 #endif /* TATULIB_H */

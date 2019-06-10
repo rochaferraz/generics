@@ -8,22 +8,52 @@
 
 /***** MEMORY TRACKER *****/
 
-/** OBJECTS **/
+/*** OBJECTS ***/
 
 typedef struct {
     void* pointer;
     long size;
-} MemoryLocation;
+} MemoryAllocation;
 
 typedef struct {
     char initialized;
     long memoryUse;
-    MemoryLocation* list;
+    MemoryAllocation* list;
     long listAllocationSize;
 } MemoryTracker;
 MemoryTracker memoryTracker = {0, 0, NULL, 0};
 
-/** METHODS **/
+/**
+
++================+      +------------------------+
+|                |      |                        |
+| void* pointer  +----->| Target memory location |
+|                |      |                        |
++----------------+      +------------------------+
+|                |
+| long size      |
+|                |
++================+
+|                |
+| void* pointer  |
+|     NULL       |
++----------------+
+|                |
+| long size      |
+|                |
++================+
+|                |
+| void* pointer  |
+|     NULL       |
++----------------+
+|                |
+| long size      |
+|                |
++================+
+
+ */
+
+/*** METHODS ***/
 
 #ifdef TRACK_MEMORY_EN
 
@@ -34,22 +64,26 @@ long ttgetMemoryUse(void) {
 	return memoryTracker.memoryUse;
 }
 
+/// initializes the memory logger
 void ttmemoryInit(void) {
 	memoryTracker.initialized = 1;
-	memoryTracker.list = malloc(100*sizeof(MemoryLocation));
+	memoryTracker.list = malloc(100*sizeof(MemoryAllocation));
     memoryTracker.listAllocationSize = 100;
-    ttmemset(memoryTracker.list, 0, memoryTracker.listAllocationSize*sizeof(MemoryLocation));
-    COND_CODE_1(PRINT_MEMORY_MSG, (printf("DBG Memory initialized\n")),());
+    ttmemset(memoryTracker.list, 0, memoryTracker.listAllocationSize*sizeof(MemoryAllocation));
+    COND_CODE_1(PRINT_MEMORY_MSG, (printf("DBG Memory Logger initialized\n")),());
 }
 
+/// destroys the memory logger and all contents allocated
 void ttmemoryDispose(void) {
+    // todo: clear all items
 	free(&memoryTracker.list);
-    COND_CODE_1(PRINT_MEMORY_MSG, (printf("DBG Memory disposed\n")),());
+    COND_CODE_1(PRINT_MEMORY_MSG, (printf("DBG Memory Logger disposed\n")),());
 }
 
-void _ttregisterMemory(MemoryLocation* newNode) {
+/// registers a memory allocation in tracker
+void _ttregisterMemory(MemoryAllocation* newNode) {
 	// looks for an empty space in the swiss cheese array
-    MemoryLocation* node = memoryTracker.list;
+    MemoryAllocation* node = memoryTracker.list;
     unsigned long position = 0;
     for (; position < memoryTracker.listAllocationSize; position++) {
         if (node->pointer == NULL) {
@@ -61,22 +95,21 @@ void _ttregisterMemory(MemoryLocation* newNode) {
     // do we need to increase space?
     if (position == memoryTracker.listAllocationSize) {
         memoryTracker.list = realloc(memoryTracker.list, memoryTracker.listAllocationSize*2);
-        ttmemset(memoryTracker.list + memoryTracker.listAllocationSize*sizeof(MemoryLocation), 0,
-                 memoryTracker.listAllocationSize*sizeof(MemoryLocation));
+        ttmemset(memoryTracker.list + memoryTracker.listAllocationSize*sizeof(MemoryAllocation), 0,
+                 memoryTracker.listAllocationSize*sizeof(MemoryAllocation));
         memoryTracker.listAllocationSize *= 2;
         COND_CODE_1(PRINT_MEMORY_MSG, (printf("DBG Swiss cheese array increased to: %ld\n", memoryTracker.memoryUse)),());
     }
 
     // now we finally place the node in the swiss cheese array
     node = newNode;
-    //printf("saving %p -> %p\n", node, node->pointer);
     memoryTracker.memoryUse += node->size;
     COND_CODE_1(PRINT_MEMORY_MSG, (printf("DBG New node stored at: %p\n", node->pointer)),());
 }
 
 void _ttunregisterMemory(void* ptr) {
     // looks for reference to this address and clears it
-    MemoryLocation* node = memoryTracker.list;
+    MemoryAllocation* node = memoryTracker.list;
     unsigned int nodeIter = 0;
     for (; nodeIter < memoryTracker.listAllocationSize; nodeIter++) {
         if (node) {
@@ -85,7 +118,6 @@ void _ttunregisterMemory(void* ptr) {
                 break;
             }
         }
-        //printf("trying %p -> %p\n", node, node->pointer);
         node++;
     }
 
@@ -99,19 +131,19 @@ void _ttunregisterMemory(void* ptr) {
 /// same as libc realloc, but with debugging features
 void* ttrealloc(void* ptr, long size) {
 	void* retVal = realloc(ptr, size);
+    COND_CODE_1(PRINT_MEMORY_MSG, (printf("Node %p allocated\n", retVal)),());
 	if (!memoryTracker.initialized) {
 		ttmemoryInit();
 	}
 	if (retVal) {
-	    // if address changed on reallocation
-        if (ptr != retVal) {
-            // todo this
-        }
         // record memory used
-		MemoryLocation newNode;
+		MemoryAllocation newNode;
 		newNode.pointer = retVal;
 		newNode.size = size;
-		_ttregisterMemory(&newNode);
+//		if (ptr) {
+//            _ttunregisterMemory(ptr);
+//        }
+//		_ttregisterMemory(&newNode);
 	}
 	return retVal;
 }
@@ -125,7 +157,7 @@ void ttfree(void* ptr) {
 	// release memory use from records
     COND_CODE_1(PRINT_MEMORY_MSG, (printf("Node %p free\n", ptr)),());
 	free(ptr);
-	_ttunregisterMemory(ptr);
+	//_ttunregisterMemory(ptr);
 }
 
 #elif /* TRACK_MEMORY */
@@ -147,7 +179,7 @@ void ttfree(void* ptr) {
 
 #endif /* TRACK_MEMORY */
 
-/**** GENERAL MEMORY FUNCTIONS *****/
+/***** GENERAL MEMORY FUNCTIONS *****/
 
 void* ttmemcpy(void* dest, const void *src, long len) {
     // taken from https://github.com/gcc-mirror/gcc/blob/master/libgcc/memcpy.c

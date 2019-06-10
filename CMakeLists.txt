@@ -28,7 +28,7 @@ find_library(TEST_LIBRARY gtest "googletest/lib")
 find_library(MOCK_LIBRARY gmock "googletest/lib")
 
 #add_library(tatu STATIC ${SOURCES})
-add_executable(tatu_tests ${TESTS} ${SOURCES})
+add_executable(tatu_tests ${TESTS} ${SOURCES} src/ttswissCheese.c)
 target_link_libraries(tatu_tests LINK_PUBLIC ${TEST_LIBRARY} ${MOCK_LIBRARY})
 
-add_executable(tatu_sandbox ${SANDBOX} ${SOURCES})
+add_executable(tatu_sandbox ${SANDBOX} ${SOURCES} inc/ttswissCheese.h)
