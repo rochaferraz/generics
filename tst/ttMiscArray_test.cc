@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
-#include "ttmiscArray.h"
-#include "ttutil.h"
+#include "ttMiscArray.h"
+#include "ttUtil.h"
 #include <string.h>
 
 TEST(SearchArray, Int) {

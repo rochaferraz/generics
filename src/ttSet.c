@@ -1,10 +1,10 @@
-#include <ttswissCheese.h>
-#include <ttmiscArray.h>
+#include <ttSet.h>
+#include <ttMiscArray.h>
 #include <assert.h>
 #include <stdlib.h>
 #include <memory.h>
-#include "ttconfig.h"
-#include "ttmemory.h"
+#include "ttConfig.h"
+#include "ttMemory.h"
 
 #define PTR_SIZE    sizeof(char*)
 
@@ -13,7 +13,7 @@
  * SPDX-License-Identifier: MIT
 **/
 
-void ttSwissNew(TTSwissCheese* s, int elementSize, void (*dealocFunction)(void*)) {
+void ttSetNew(TTSet* s, int elementSize, void (*dealocFunction)(void*)) {
     assert(s != NULL);
     assert(elementSize > 0);
     s->_elementSize = elementSize;
@@ -25,12 +25,12 @@ void ttSwissNew(TTSwissCheese* s, int elementSize, void (*dealocFunction)(void*)
     assert(s->_array != NULL);
 }
 
-void ttSwissDispose(TTSwissCheese *s) {
+void ttSetDispose(TTSet *s) {
     assert(s != NULL);
 //    if (s->_dealocFunction != NULL) {
 //        while(s->_logicalLen > 0) {
 //            void* element;
-//            ttSwissRemovePtr(s, element);
+//            ttSetRemovePtr(s, element);
 //        }
 //    }
     s->_allocLen = 0;
@@ -39,26 +39,26 @@ void ttSwissDispose(TTSwissCheese *s) {
     ttfree(s->_array);
 }
 
-void ttSwissGrow(TTSwissCheese* s) {
+void ttSetGrow(TTSet* s) {
     s->_allocLen *= 2;
     s->_array = ttrealloc(s->_array, s->_allocLen * PTR_SIZE);
     assert(s->_array != NULL);
 }
 
-void ttSwissSaveCopy(TTSwissCheese *s, void *elementAddress) {
+void ttSetSaveCopy(TTSet *s, void *elementAddress) {
     assert(s != NULL);
 
     void* copy = realloc(NULL, s->_elementSize);
     ttmemcpy(copy, elementAddress, s->_elementSize);
-    ttSwissSaveAllocatedPtr(s, copy);
+    ttSetSaveAllocatedPtr(s, copy);
 }
 
-void ttSwissSaveAllocatedPtr(TTSwissCheese *s, void *elementAddress) {
+void ttSetSaveAllocatedPtr(TTSet *s, void *elementAddress) {
     assert(s != NULL);
 
     // doubles if we reach the size of the allocated stack
     if (s->_logicalLen == s->_allocLen) {
-        ttSwissGrow(s);
+        ttSetGrow(s);
     }
 
     // copies the address of the allocated element to the array
@@ -68,22 +68,22 @@ void ttSwissSaveAllocatedPtr(TTSwissCheese *s, void *elementAddress) {
 }
 
 
-void *ttSwissContainsPtr(TTSwissCheese *s, void *elmPtr, unsigned long *optArrayIdx) {
+void *ttSetContainsPtr(TTSet *s, void *elmPtr, unsigned long *optArrayIdx) {
     return searchArrayPtr(&elmPtr, s->_array, s->_allocLen, PTR_SIZE, NULL, optArrayIdx);
 }
 
-int ttSwissValueCompareFcn(void* num1, void* num2, unsigned int elementSize) {
+int ttSetValueCompareFcn(void* num1, void* num2, unsigned int elementSize) {
     if ((*(char**)num1 == NULL) || (*(char**)num2 == NULL)) return -1;
     char* num11 = *(char**)num1;
     char* num22 = *(char**)num2;
     return memcmp(num11, num22, elementSize);
 }
 
-void* ttSwissContainsValue(TTSwissCheese *s, void *elmPtr, unsigned long *optArrayIdx) {
-    return searchArrayPtr(&elmPtr, s->_array, s->_allocLen, PTR_SIZE, &ttSwissValueCompareFcn, optArrayIdx);
+void* ttSetContainsValue(TTSet *s, void *elmPtr, unsigned long *optArrayIdx) {
+    return searchArrayPtr(&elmPtr, s->_array, s->_allocLen, PTR_SIZE, &ttSetValueCompareFcn, optArrayIdx);
 }
 
-int ttSwissRemovePtr(TTSwissCheese *s, void *elementAddress) {
+int ttSetRemovePtr(TTSet *s, void *elementAddress) {
     // asserts for sanity check
     assert(s != NULL);
     assert(elementAddress != NULL);
@@ -94,7 +94,7 @@ int ttSwissRemovePtr(TTSwissCheese *s, void *elementAddress) {
     // deallocates the memory the element occupies and zeros reference in swiss cheese
     void* ptr;
     unsigned long idx;
-    if ((ptr = ttSwissContainsPtr(s, elementAddress, &idx))) {
+    if ((ptr = ttSetContainsPtr(s, elementAddress, &idx))) {
         if (s->_dealocFunction != NULL) {
             s->_dealocFunction(ptr);
         }
@@ -106,7 +106,7 @@ int ttSwissRemovePtr(TTSwissCheese *s, void *elementAddress) {
     }
 }
 
-int ttSwissRemoveValue(TTSwissCheese *s, void *elementAddress) {
+int ttSetRemoveValue(TTSet *s, void *elementAddress) {
     // asserts for sanity check
     assert(s != NULL);
     assert(elementAddress != NULL);
@@ -117,7 +117,7 @@ int ttSwissRemoveValue(TTSwissCheese *s, void *elementAddress) {
     // deallocates the memory the element occupies and zeros reference in swiss cheese
     void* ptr;
     unsigned long idx;
-    if ((ptr = ttSwissContainsValue(s, elementAddress, &idx))) {
+    if ((ptr = ttSetContainsValue(s, elementAddress, &idx))) {
         if (s->_dealocFunction != NULL) {
             s->_dealocFunction(ptr);
         }

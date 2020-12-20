@@ -1,10 +1,10 @@
-#include "ttconfig.h"
-#include "ttmemory.h"
+#include "ttConfig.h"
+#include "ttMemory.h"
 #include <assert.h>
-#include "ttlinkedlist.h"
+#include "ttLinkedList.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "ttutil.h"
+#include "ttUtil.h"
 
 /***** MEMORY TRACKER *****/
 

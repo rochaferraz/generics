@@ -1,6 +1,6 @@
-#include "ttmemory.h"
-#include "ttconfig.h"
-#include "ttlinkedlist.h"
+#include "ttMemory.h"
+#include "ttConfig.h"
+#include "ttLinkedList.h"
 #include <stdlib.h>
 
 void linkedListNew(LinkedList *list, int elementSize, void *(*nodeDestructorCallback)(LinkedListNode *)) {

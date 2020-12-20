@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
-#include "ttlinkedlist.h"
-#include "ttmemory.h"
+#include "ttLinkedList.h"
+#include "ttMemory.h"
 #include <string.h>
 #include <stdio.h>
 

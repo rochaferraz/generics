@@ -2,7 +2,7 @@
 #include <strings.h>
 #include <assert.h>
 #include <stdio.h>
-#include <ttmiscArray.h>
+#include <ttMiscArray.h>
 
 //void* searchArrayPtr(void* key, void* array, unsigned long nElementsOnArray, unsigned int elementSize, int (*compareFunction)(void*, void*)) {
 //	assert(array != NULL);

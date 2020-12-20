@@ -1,8 +1,8 @@
-#include <ttstack.h>
+#include <ttStack.h>
 #include <assert.h>
 #include <stdlib.h>
-#include "ttconfig.h"
-#include "ttmemory.h"
+#include "ttConfig.h"
+#include "ttMemory.h"
 
 void stackNew(Stack* s, int elementSize, void (*dealocFunction)(void*)) {
 	assert(s != NULL);

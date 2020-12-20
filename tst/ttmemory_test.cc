@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "ttmemory.h"
+#include "ttMemory.h"
 #include <cstring>
 
 TEST(Swap, Int) {

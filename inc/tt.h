@@ -24,11 +24,11 @@
  * This file is used for including all headers from Tatulib Library
  */
 
-#include "ttconfig.h"
-#include "ttlinkedlist.h"
-#include "ttutil.h"
-#include "ttstack.h"
-#include "ttmemory.h"
-#include "ttmiscArray.h"
+#include "ttConfig.h"
+#include "ttLinkedList.h"
+#include "ttUtil.h"
+#include "ttStack.h"
+#include "ttMemory.h"
+#include "ttMiscArray.h"
 
 #endif /* TATULIB_H */

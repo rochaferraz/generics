@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
-#include "ttstack.h"
-#include "ttmemory.h"
+#include "ttStack.h"
+#include "ttMemory.h"
 
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);

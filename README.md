@@ -6,7 +6,7 @@ The use of plain C language with generics is known for being _dangerous_ as it m
 
 We also wrapped them in several unit tests.
 
-This library tries *not* to rely too much on preprocessing as it often brings its own hydra heads to the problem at hand.
+This library tries *not* to rely on preprocessing as it often brings its own hydra heads to the problem at hand.
 
 # Current implementatations
 - Stack
@@ -20,7 +20,7 @@ This library tries *not* to rely too much on preprocessing as it often brings it
 - Graph
 - Linked List
 
-# Algorithm Wishlist (To be deployed as Preguilib)
+# Algorithm Wishlist
 
 - Quicksort and mergesort
 - Binary Tree / BFS / DFS
@@ -48,7 +48,7 @@ git clone https://github.com/rochaferraz/tatulib.git
 
 - Fetch Google Test submodule
 ```bash
-git gubmodule update
+git submodule update --init
 ```
 
 - Build Google Test

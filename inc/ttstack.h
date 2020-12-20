@@ -23,7 +23,7 @@
 /***** CONFIGURATIONS *****/
 
 /// This defines preallocated number of elements when a stack is created
-#include "ttswissCheese.h"
+#include "ttSet.h"
 
 #define PREALLOC_SIZE	4
 
