@@ -1,7 +1,7 @@
-#include "ttMemory.h"
-#include "ttConfig.h"
-#include "ttLinkedList.h"
 #include <stdlib.h>
+#include <ttConfig.h>
+#include <ttLinkedList.h>
+#include <ttMemory.h>
 
 void linkedListNew(LinkedList *list, int elementSize, void *(*nodeDestructorCallback)(LinkedListNode *)) {
     list->_logicalLen = 0;

@@ -1,10 +1,10 @@
 #include <ttSet.h>
-#include <ttMiscArray.h>
 #include <assert.h>
 #include <stdlib.h>
 #include <memory.h>
-#include "ttConfig.h"
-#include "ttMemory.h"
+#include <ttConfig.h>
+#include <ttMemory.h>
+#include <ttMiscArray.h>
 
 #define PTR_SIZE    sizeof(char*)
 

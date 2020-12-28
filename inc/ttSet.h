@@ -3,20 +3,6 @@
  * SPDX-License-Identifier: MIT
 **/
 
-/**
- *  _____     _         _ _ _
- * |_   _|_ _| |_ _   _| (_) |__
- *   | |/ _` | __| | | | | | '_ \
- *   | | (_| | |_| |_| | | | |_) |
- *   |_|\__,_|\__|\__,_|_|_|_.__/
- *
- *
- *                  ,::////;::-.
- *                 /:'///// ``::>/|/
- *               .',  ||||    `/( e\
- *           -==~-'`-Xm````-mm-' `-_\
-**/
-
 #ifndef TATU_LIBRARY_TTSWISSCHEESE_H
 #define TATU_LIBRARY_TTSWISSCHEESE_H
 

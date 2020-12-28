@@ -3,32 +3,27 @@
  * SPDX-License-Identifier: MIT
 **/
 
-/**
- *  _____     _         _ _ _
- * |_   _|_ _| |_ _   _| (_) |__
- *   | |/ _` | __| | | | | | '_ \
- *   | | (_| | |_| |_| | | | |_) |
- *   |_|\__,_|\__|\__,_|_|_|_.__/
- *
- *
- *                  ,::////;::-.
- *                 /:'///// ``::>/|/
- *               .',  ||||    `/( e\
- *           -==~-'`-Xm````-mm-' `-_\     -Seal do Mar
-**/
-
-#ifndef TATULIB_H
-#define TATULIB_H
+#ifndef TTLIB_H
+#define TTLIB_H
 
 /*
  * This file is used for including all headers from Tatulib Library
  */
 
-#include "ttConfig.h"
-#include "ttLinkedList.h"
-#include "ttUtil.h"
-#include "ttStack.h"
-#include "ttMemory.h"
-#include "ttMiscArray.h"
+typedef enum {
+    ttErr_None = 0,
+    ttErr_Full = -100,
+    ttErr_Empty,
+    ttErr_NotConfigured,
+    ttErr_Unknown
+} ttError_t;
 
-#endif /* TATULIB_H */
+#include <ttConfig.h>
+#include <ttLinkedList.h>
+#include <ttMemory.h>
+#include <ttMiscArray.h>
+#include <ttStack.h>
+#include <ttUtil.h>
+#include <ttFIFO.h>
+
+#endif /* TTLIB_H */

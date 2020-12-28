@@ -3,24 +3,10 @@
  * SPDX-License-Identifier: MIT
 **/
 
-/**
- *  _____     _         _ _ _
- * |_   _|_ _| |_ _   _| (_) |__
- *   | |/ _` | __| | | | | | '_ \
- *   | | (_| | |_| |_| | | | |_) |
- *   |_|\__,_|\__|\__,_|_|_|_.__/
- *
- *
- *                  ,::////;::-.
- *                 /:'///// ``::>/|/
- *               .',  ||||    `/( e\
- *           -==~-'`-Xm````-mm-' `-_\
-**/
-
-#ifndef PROJECT_TTCONFIG_H
-#define PROJECT_TTCONFIG_H
+#ifndef TTCONFIG_H
+#define TTCONFIG_H
 
 /// Tracks allocation and deallocation of heap memory. See ttmemory.h
-#define TRACK_MEMORY_EN
+#define TRACK_MEMORY_EN     (0)
 
-#endif //PROJECT_TTCONFIG_H
+#endif /* TTCONFIG_H */

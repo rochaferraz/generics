@@ -3,22 +3,8 @@
  * SPDX-License-Identifier: MIT
 **/
 
-/**
- *  _____     _         _ _ _
- * |_   _|_ _| |_ _   _| (_) |__
- *   | |/ _` | __| | | | | | '_ \
- *   | | (_| | |_| |_| | | | |_) |
- *   |_|\__,_|\__|\__,_|_|_|_.__/
- *
- *
- *                  ,::////;::-.
- *                 /:'///// ``::>/|/
- *               .',  ||||    `/( e\
- *           -==~-'`-Xm````-mm-' `-_\
-**/
-
-#ifndef LINKED_LIST_H
-#define LINKED_LIST_H
+#ifndef TT_LINKED_LIST_H
+#define TT_LINKED_LIST_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -62,4 +48,4 @@ LinkedListNode* _linkedListGetLastNode(LinkedListNode* node);
 }
 #endif /* __cplusplus */
 
-#endif /* LINKED_LIST_H */
+#endif /* TT_LINKED_LIST_H */

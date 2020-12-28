@@ -1,10 +1,10 @@
-#include "ttConfig.h"
-#include "ttMemory.h"
 #include <assert.h>
-#include "ttLinkedList.h"
 #include <stdlib.h>
 #include <stdio.h>
-#include "ttUtil.h"
+#include <ttConfig.h>
+#include <ttLinkedList.h>
+#include <ttMemory.h>
+#include <ttUtil.h>
 
 /***** MEMORY TRACKER *****/
 
@@ -55,7 +55,7 @@ MemoryTracker memoryTracker = {0, 0, NULL, 0};
 
 /*** METHODS ***/
 
-#ifdef TRACK_MEMORY_EN
+#if TRACK_MEMORY_EN
 
 #define PRINT_MEMORY_MSG    1
 
@@ -160,11 +160,11 @@ void ttfree(void* ptr) {
 	//_ttunregisterMemory(ptr);
 }
 
-#elif /* TRACK_MEMORY */
+#else /* TRACK_MEMORY */
 
 /// wrapper around realloc
 void* ttrealloc(void* ptr, long size) {
-	return realloc(*ptr, size);
+	return realloc(ptr, size);
 }
 
 /// wrapper around malloc
